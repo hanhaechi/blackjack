@@ -1,7 +1,7 @@
 var cards = (function(){
 
 	// constants for a 52 card deck
-	var CARD_VALUE_LIST = ["2","3","4","5","6","7","8","9","10","j","q","k","a"]
+	var CARD_VALUE_LIST = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"]
 	var CARD_SUIT_LIST = ["hearts","diamonds","clubs","spades"]
 	var CARD_COLOR_LIST = ["red","black"]
 	var CARD_COLOR_MAP = {
