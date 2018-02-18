@@ -169,8 +169,7 @@ function getCard(hand, position){
 
 function mapToCardImg(face_up, value, suit){
 	if (face_up === true){
-		var valueUp = value.toUpperCase();
-		var cardName = suit+'_'+valueUp+'.png'
+		var cardName = suit+'_'+value+'.png'
 		var cardURL = 'img/' + cardName
 	} else {
 		var cardURL = 'img/back_dark.png'
