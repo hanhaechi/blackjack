@@ -1,0 +1,30 @@
+.player-cards , .dealer-cards {
+	display: inline-block;
+}
+
+/*add media query for small screens*/
+.dealer-cards img {
+	width: 100px;
+}
+
+.player-cards img {
+	width: 130px;
+}
+
+img {
+	padding-right: 10px;
+}
+
+.dealer-count, .player-count {
+	margin-left: 1%;
+}
+
+.card {
+	max-width: 40%;
+	display: none;
+	padding: 12px;
+}
+
+#deal {
+	min-width: 22%;
+}
