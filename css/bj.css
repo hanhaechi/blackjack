@@ -2,7 +2,6 @@
 	display: inline-block;
 }
 
-/*add media query for small screens*/
 .dealer-cards img {
 	width: 100px;
 }
@@ -13,6 +12,7 @@
 
 img {
 	padding-right: 10px;
+	margin-bottom: 10px;
 }
 
 .dealer-count, .player-count {
@@ -27,4 +27,30 @@ img {
 
 #deal {
 	min-width: 22%;
+}
+
+/* media queries */
+
+@media (max-width: 575px) { 
+	.dealer-cards img {
+		max-width: 80px;
+	}
+
+	.player-cards img {
+		max-width: 100px;
+	}
+	.card {
+		max-width: 100%;
+	}
+	img {
+		padding-right: 5px;
+		margin-bottom: 5px;
+	}
+}
+
+
+@media (min-width: 576px) and (max-width: 767px) { 
+	.card {
+		max-width: 60%;
+	}
 }
