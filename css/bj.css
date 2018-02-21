@@ -29,6 +29,7 @@ img {
 	min-width: 22%;
 }
 
+
 /* media queries */
 
 @media (max-width: 575px) { 
@@ -37,7 +38,7 @@ img {
 	}
 
 	.player-cards img {
-		max-width: 100px;
+		max-width: 90px;
 	}
 	.card {
 		max-width: 100%;
