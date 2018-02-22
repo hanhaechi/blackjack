@@ -25,13 +25,13 @@ var bj = (function() {
 		
 		
 		this.createDeck = function(){
-			var initialDeck = new cards.StandardShuffledDeck();
-			var deck = new cards.ShuffledShoe(initialDeck, 5)
+			var deck = new cards.StandardShuffledDeck();
+//			var deck = new cards.ShuffledShoe(initialDeck, 5)
 
 			this.adjustValues = function(){
 				for (var i = 0; i < deck.length; i++){
 					var card_gameValue = deck[i].extra.game_value;
-					if (card_gameValue > 10 && card_gameValue <= 13){
+					if (card_gameValue >= 10 && card_gameValue <= 13){
 						deck[i].extra.game_value = 10
 					}
 				}
