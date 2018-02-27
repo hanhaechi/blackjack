@@ -25,20 +25,20 @@ var bj = (function() {
 		
 		
 		this.createDeck = function(){
-			var deck = new cards.StandardShuffledDeck();
-//			var deck = new cards.ShuffledShoe(initialDeck, 5)
+			var initialDeck = new casino.StandardShuffledDeck();
+			var deck = new casino.ShuffledShoe(initialDeck, 5);
 
 			this.adjustValues = function(){
 				for (var i = 0; i < deck.length; i++){
 					var card_gameValue = deck[i].extra.game_value;
 					if (card_gameValue >= 10 && card_gameValue <= 13){
-						deck[i].extra.game_value = 10
+						deck[i].extra.game_value = 10;
 					}
 				}
 				for (var i = 0; i < deck.length; i++){
 				var card_gameValue = deck[i].extra.game_value;
 					if (card_gameValue === 14){
-						deck[i].extra.game_value = 11
+						deck[i].extra.game_value = 11;
 					} 
 				}
 			}
@@ -51,36 +51,36 @@ var bj = (function() {
 			var DEAL_COUNT = 4;
 			var player = true;
 			for (var i = 0; i < DEAL_COUNT; i++){
-				var newCard = cards.draw(1, this.deck)
+				var newCard = casino.draw(1, this.deck);
 				if (player) {
-					this.player.hand = cards.Hand(newCard, this.player.hand);
-					this.faceUp(this.player.hand, this.player.hand.length-1)
-					player = false
+					this.player.hand = casino.Hand(newCard, this.player.hand);
+					this.faceUp(this.player.hand);
+					player = false;
 				} else {
-					this.dealer.hand = cards.Hand(newCard, this.dealer.hand);
-					player = true
+					this.dealer.hand = casino.Hand(newCard, this.dealer.hand);
+					player = true;
 				}
 			}
-			this.faceUp(this.dealer.hand, 0);
+			this.faceUp(this.dealer.hand);
 			this.dealer.hand[1].extra.face_up = false;
-			this.player.handTotal = this.getHandTotal(this.player.hand)
-			this.dealer.handTotal = this.getHandTotal(this.dealer.hand)
+			this.player.handTotal = this.getHandTotal(this.player.hand);
+			this.dealer.handTotal = this.getHandTotal(this.dealer.hand);
 			this.checkPoints(BJ_WIN); // check if any player wins with a natural Blackjack
 		}
 		
 		
 		this.hit = function(){
-			var newCard = cards.draw(1, this.deck)	
+			var newCard = casino.draw(1, this.deck);
 			if (this.playerTurn){
-				this.player.hand = cards.Hand(newCard, this.player.hand)
-				this.faceUp(this.player.hand, this.player.hand.length-1)
-				this.player.handTotal = this.getHandTotal(this.player.hand)
-				this.isBust(this.player.handTotal)
+				this.player.hand = casino.Hand(newCard, this.player.hand);
+				this.faceUp(this.player.hand, this.player.hand.length-1);
+				this.player.handTotal = this.getHandTotal(this.player.hand);
+				this.isBust(this.player.handTotal);
 			} else {
-				this.dealer.hand = cards.Hand(newCard, this.dealer.hand)
-				this.faceUp(this.dealer.hand, this.dealer.hand.length-1)
-				this.dealer.handTotal = this.getHandTotal(this.dealer.hand)
-				this.isBust(this.dealer.handTotal)
+				this.dealer.hand = casino.Hand(newCard, this.dealer.hand);
+				this.faceUp(this.dealer.hand, this.dealer.hand.length-1);
+				this.dealer.handTotal = this.getHandTotal(this.dealer.hand);
+				this.isBust(this.dealer.handTotal);
 				this.dealerAction();
 			}
 		}	
@@ -103,7 +103,7 @@ var bj = (function() {
 		
 		this.stand = function(){
 			this.toggleTurn();
-			this.faceUp(this.dealer.hand,1); // turn the second dealer's card face up
+			this.faceUp(this.dealer.hand, 1); // turn the second dealer's card face up
 			this.dealerAction();
 		}
 		
@@ -115,7 +115,7 @@ var bj = (function() {
 		this.dealerAction = function(){
 			var dealerHandTotal = this.dealer.handTotal;
 			if (dealerHandTotal <= 16){
-				this.hit()
+				this.hit();
 			} else if (dealerHandTotal >= 17 && dealerHandTotal <= this.bust){
 				this.checkPoints(BJ_WIN);
 				if (this.winner === null){
@@ -131,10 +131,10 @@ var bj = (function() {
 		
 		// adjust hand value if hand total exceeds 21 and Aces are found
 		this.adjustForAces = function(hand, totalValue){
-			var count = 0
+			var count = 0;
 			for (var i = 0; i < hand.length; i++){
 				if (hand[i].extra.game_value === 11){
-					count++
+					count++;
 				}
 			}
 			if (count > 0){
@@ -160,7 +160,7 @@ var bj = (function() {
 			// if it's dealer's turn, and he has busted, player wins
 			if (handTotal > this.bust && this.playerTurn){
 				this.player.bust = true;
-				this.faceUp(this.dealer.hand,1)
+				this.faceUp(this.dealer.hand,1);
 				this.declareWinner("dealer");
 			} else if (handTotal > this.bust && !this.playerTurn) {
 				this.dealer.bust = true;
@@ -249,9 +249,9 @@ var bj = (function() {
 		
 		// create the new Game
 		this.newGame = function(){
-			this.dealer.hand = cards.clearHand();
+			this.dealer.hand = casino.clearHand();
 			this.dealer.handTotal = 0;
-			this.player.hand = cards.clearHand();
+			this.player.hand = casino.clearHand();
 			this.player.handTotal = 0;
 			this.playerTurn = true;
 			this.status = 1;
@@ -273,19 +273,19 @@ var bj = (function() {
 				
 				var cardToDelete = this.deck.find(findCard);
 				var index = this.deck.indexOf(cardToDelete);
-				this.deck.splice(index,1)
+				this.deck.splice(index,1);
 			}
 		}
 		
 		///// GAME START /////
 		
 		if (status === 0){
-			this.newGame()
+			this.newGame();
 		} else if (status === 1){
 			this.createDeck();
 			this.adjustDeck();
-			this.dealer.handTotal = this.getHandTotal(this.dealer.hand) // calculate handTotals
-			this.player.handTotal = this.getHandTotal(this.player.hand)
+			this.dealer.handTotal = this.getHandTotal(this.dealer.hand); // calculate handTotals
+			this.player.handTotal = this.getHandTotal(this.player.hand);
 		}
 	
 			
